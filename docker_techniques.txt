@@ -1,0 +1,51 @@
+Docker related techniques
+
+Save a docker image and copy & load from a EC2
+
+1. On local machine:
+    1. docker save 745719312218.dkr.ecr.us-east-1.amazonaws.com/opendistroforelasticsearch-kibana:0.8.0 > odfe-kibana-0.8.0.tar
+        
+        scp -i allen_01.pem /path/to/odfe-es-0.8.0.tar ubuntu@ec2-34-232-63-30.compute-1.amazonaws.com:~
+2. On EC2:
+    1. docker load < odfe-es-0.8.0.tar
+
+
+
+Dockerfile
+
+*EXPOSE*
+exposes the specified port and makes it available only for *inter-container* communication.
+
+*PUBLISH*
+This will publish the ports that are exposed so that the host and access it.
+
+*So to summarize EXPOSE vs PUBLISH, the three options you have are:*
+
+1. Neither specify EXPOSE nor -p
+2. Only specify EXPOSE
+3. Specify EXPOSE and -p
+
+1) If you do not specify neither EXPOSE nor -p, the service in the container will only be accessible from inside the container itself.
+2) If you EXPOSE a port, the service in the container is not accessible from outside Docker, but from inside other Docker containers. So this is good for inter-container communication.
+3) If you EXPOSE and -p a port, the service in the container is accessible from anywhere, even outside Docker.
+
+*Entrypoint* 
+sets the command and parameters that will be executed first when a container is run. Will override all elements specified using 
+
+*CMD*
+provide defaults when executing a container. These will be executed after the entrypoint. There can only be one CMD instruction in a Dockerfile. If you list more than one CMD, then only the last CMD will take effect.
+
+Useful commands
+
+To kill all containers running quietly
+docker kill $(docker ps -qa)
+
+To use docker inside a docker container
+docker run -it -p 8080:8080 —privileged \
+-v /var/run/docker.sock:/var/run/docker.sock opendistroforelasticsearch/base-ubuntu
+
+Remove unnecessary docker images
+docker rmi $(sudo docker images --filter "dangling=true" -q —no-trunc)
+
+Remove both unused and dangling images
+docker system prune -a
