@@ -12,3 +12,4 @@
 
 ## Others
 * Map ESC to CAP LOCK
+* Iterm2 text edit https://apple.stackexchange.com/questions/136928/using-alt-cmd-right-left-arrow-in-iterm
