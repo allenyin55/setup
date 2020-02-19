@@ -47,13 +47,13 @@ sudo xfs_growfs /dev/nvme0n1p1
 Details see [here](https://stackoverflow.com/questions/52508038/how-to-increase-aws-ebs-nvme-size)
 
 
-# Find dir with many files
+## Find dir with many files
 sudo find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -n
 
-# Find number of files in current directory
+## Find number of files in current directory
 find -type f | wc -l
 
-# Extract and see what's inside a rpm package
+## Extract and see what's inside a rpm package
 
 repoquery --installed -l pkg
 
