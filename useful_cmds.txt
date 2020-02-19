@@ -40,8 +40,10 @@ sudo xfs_growfs /dev/nvme0n1p1
 # No space left on device
 
 1. Grow ebs
-2. sudo growpart /dev/xvda 1
-3. sudo resize2fs /dev/xvda1
+2. sudo growpart /dev/xvda 1 (for nvme: sudo growpart /dev/nvme0n1 1)
+3. sudo resize2fs /dev/xvda1 (for nvme: sudo resize2fs /dev/nvme0n1p1)
+
+Details see [here](https://stackoverflow.com/questions/52508038/how-to-increase-aws-ebs-nvme-size)
 
 
 # Find dir with many files
